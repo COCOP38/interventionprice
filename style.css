@@ -1,5 +1,225 @@
+/* Reset minimal */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Conteneur principal centré avec un max-width */
 body {
-  font-family: sans-serif;
-  background-color: #f2f2f2;
-  padding: 2rem;
+    background: #f5f7fa;
+    color: #222;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 30px;
+    min-height: 100vh;
+}
+
+/* Formulaire */
+form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgb(0 0 0 / 0.1);
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Labels et inputs */
+label {
+    width: 100%;
+    border-radius: 6px;
+    border: 1.8px solid #ccc;
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: flex;
+    font-size: 0.95rem;
+    background: white;
+    padding-right: 12px;
+    overflow: hidden;
+}
+label span{
+    flex: auto;
+    border-right: 1px solid #ccc;
+    padding: 8px 0 8px 12px;
+    background: #f5f7fa;
+}
+label select,
+label input{
+    width: 120px;
+    flex-basis: 120px;
+    text-align: center;
+    padding: 8px 0 8px 0;
+}
+
+input[type="number"],
+select {
+    width: 100%;
+    padding: 0;
+    border: 0px solid transparent;
+    font-size: 1rem;
+    transition: border-color 0.25s ease;
+}
+
+input[type="number"]:focus,
+select:focus {
+    border-color: #2a8ef7;
+    outline: none;
+}
+
+/* Checkbox stylées simples */
+input[type="checkbox"] {
+    transform: scale(1.2);
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+/* Boutons */
+button {
+    width: 100%;
+    background-color: #2a8ef7;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #1c6ddb;
+}
+
+button:disabled {
+    background-color: #a3c3f9;
+    cursor: not-allowed;
+}
+
+h2{
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* Résultat */
+#result-container{
+    width: 100%;
+}
+
+#resultat {
+    white-space: pre-line;
+    border-radius: 10px;
+    margin-top: 20px;
+    font-size: 0.95rem;
+    max-width: 400px;
+    width: 100%;
+}
+#resultat *{
+    font-size: 0.95rem;
+}
+#resultat ol{
+    list-style: none;
+}
+#resultat ol li{
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+#resultat ol li:nth-child(odd){
+    background: #deeaff;
+}
+#resultat ol li:nth-child(even) {
+    background: #f3f3e4;
+}
+
+#extra-reference{
+    width: 100%;
+}
+#reload-widget {
+    width: 35px;
+    height: 35px;
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    font-size: 2.25rem;
+    padding: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    z-index: 999;
+    transition: background-color 0.2s;
+    overflow: hidden;
+    line-height: 0;
+    opacity: 0.5;
+}
+#reload-widget:hover {
+    background-color: #f0f0f0;
+}
+#reload-widget span{
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Zone input référence supplémentaire */
+#ref-input-zone {
+    max-width: 400px;
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Message erreur */
+#error-message,
+#ref_error {
+    color: #d93025;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-top: 6px;
+}
+
+.alert-error,
+#resultat.alert-error {
+    color: #b00020;
+    background: #ffe6e6;
+    border: 1px solid #b00020;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-weight: 500;
+    white-space: pre-wrap;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    form {
+        padding: 15px;
+    }
+
+    button {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    #resultat {
+        font-size: 0.9rem;
+    }
 }
