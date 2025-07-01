@@ -55,6 +55,7 @@ label input{
     flex-basis: 120px;
     text-align: center;
     padding: 8px 0 8px 0;
+    background-color: white;
 }
 
 input[type="number"],
