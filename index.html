@@ -1,14 +1,70 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <title>Ma page web</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <h1>Bienvenue sur ma page</h1>
-  <button onclick="direBonjour()">Clique-moi</button>
 
-  <script src="script.js"></script>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Simulateur de devis</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <h2>Simulateur de devis</h2>
+
+    <label><span>Prix de vente TTC (€) :</span>
+        <input type="number" id="prix_ttc" step="0.01">
+    </label><br>
+
+    <label><span>Nb main d'œuvre :</span>
+        <select id="nb_mo"></select>
+    </label><br>
+
+    <label><span>Remise diagnostic :</span>
+        <select id="remise_diag">
+            <option value="false" selected>Non</option>
+            <option value="true">Oui</option>
+        </select>
+    </label><br>
+
+    <label><span>Déplacement offert :</span>
+        <select id="remise_dep">
+            <option value="false" selected>Non</option>
+            <option value="true">Oui</option>
+        </select>
+    </label><br>
+
+    <label><span>Taxes :</span>
+        <select id="user_taxes">
+            <option value="TVA 10%">TVA 10%</option>
+            <option value="TVA 20%">TVA 20%</option>
+        </select>
+    </label><br>
+
+    <button onclick="calculer()">Calculer</button>
+    <br>
+
+    <div id="result-container" style="display:none;">
+        <h2>Résultats :</h2>
+        <pre id="resultat" class=""></pre>
+    </div>
+    <br>
+    <div id="extra-reference" style="display: none;">
+        <button id="add-ref-btn" onclick="afficherInputReference()">Ajouter une nouvelle référence</button>
+        
+        <div id="ref-input-zone" style=" display: none;">
+            <br>
+            <label><span>Prix de la nouvelle ref :</span>
+                <input type="number" id="ref_input_value" step="0.01">
+            </label>
+            <br>
+            <button onclick="confirmerNouvelleReference()" class="confirmer">Confirmer</button>
+            <p id="ref_error" style="color: red;"></p>
+        </div>
+    </div>
+
+    <button id="reload-widget" title="Recharger la page"><span>🔄</span></button>
+
+    <script src="script.js"></script>
 </body>
+
 </html>
