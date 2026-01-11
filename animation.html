@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Prototype Chatbot Shopping</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Hubot+Sans:wght@200..900&family=Mona+Sans:wght@200..900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="stage">
+        <aside class="dashboard">
+            <div class="dashboard__block">
+                <label class="field__label" for="bgSelect">Background</label>
+                <div class="urlField">
+                    <select id="bgSelect">
+                        <option value="nike.png">Nike</option>
+                        <option value="laredoute.png">La Redoute</option>
+                        <option value="clic.png">Clic Volet</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="dashboard__block">
+                <label class="field__label" for="effectSelect">Effet Visuel</label>
+                <div class="urlField">
+                    <select id="effectSelect">
+                        <option value="effect-glow1">1 Dark flow</option>
+                        <option value="effect-flow">2 Flow Gradient</option>
+                        <option value="effect-pulse">3 Pulse Sparkle ?</option>
+                        <option value="effect-notch">4 Bubble</option>
+                        <option value="effect-peek">5 Peek-a-Boo</option>
+                        <option value="effect-pulltab">6 Gradient Pull-Tab</option>
+                        <option value="effect-shockwave">7 Floating Pulse</option>
+                        <!--<option value="effect-electric">8. Electric Streams</option>-->
+                    </select>
+                </div>
+            </div>        
+        </aside>
+
+        <div class="phone">
+            <div class="phone__viewport">
+                <div class="fx" id="mainGlow">                    
+                    <div class="glass-trigger">
+                        <div class="glass-trigger-content">
+                            <div class="glass-icon" order="1">
+                                <svg version="1.1" viewBox="0 0 20 20">
+                                    <path d="M9.81,11.46c-1.38,0-2.5-1.12-2.5-2.5v-3.12c0-1.38,1.12-2.5,2.5-2.5s2.5,1.12,2.5,2.5v3.12c0,1.38-1.12,2.5-2.5,2.5ZM9.81,4.6c-.69,0-1.25.56-1.25,1.25v3.12c0,.69.56,1.25,1.25,1.25s1.25-.56,1.25-1.25v-3.12c0-.69-.56-1.25-1.25-1.25Z"/>
+                                    <path d="M9.81,13.96c-2.75,0-4.99-2.24-4.99-4.99,0-.34.28-.62.62-.62s.62.28.62.62c0,2.06,1.68,3.74,3.74,3.74s3.74-1.68,3.74-3.74c0-.34.28-.62.62-.62s.62.28.62.62c0,2.75-2.24,4.99-4.99,4.99Z"/>
+                                    <path d="M12.31,16.46h-4.99c-.34,0-.62-.28-.62-.62s.28-.62.62-.62h4.99c.34,0,.62.28.62.62s-.28.62-.62.62Z"/>
+                                    <path d="M9.81,16.46c-.34,0-.62-.28-.62-.62v-2.5c0-.34.28-.62.62-.62s.62.28.62.62v2.5c0,.34-.28.62-.62.62Z"/>
+                                </svg>
+                            </div>                            
+                            <div class="glass-icon" order="2">
+                                <svg version="1.1" viewBox="0 0 20 20">
+                                    <path d="M12.79,7.76c-.29-.23-.55-.5-.77-.79-.27-.35-.47-.73-.62-1.14l-1.32-3.47c-.04-.1-.19-.1-.23,0l-1.27,3.47c-.18.48-.42.94-.75,1.34-.1.11-.2.23-.3.33-.48.48-1.08.83-1.72,1.07l-3.49,1.28c-.1.04-.1.18,0,.22l3.57,1.26c.42.15.81.34,1.17.6s.68.58.95.93.47.73.62,1.13l1.32,3.47c.04.1.19.1.23,0l1.26-3.45c.2-.56.5-1.09.91-1.53.2-.22.42-.42.66-.6.35-.26.74-.46,1.15-.61l3.55-1.3c.1-.04.1-.18,0-.22l-3.53-1.24c-.5-.18-.97-.42-1.38-.75Z"/>
+                                    <path d="M4.96,15.08s-.1-.09-.14-.14c-.09-.11-.16-.23-.21-.36l-.36-.95s-.09-.05-.11,0l-.35.96c-.05.13-.11.26-.2.37-.04.05-.09.1-.13.14-.13.12-.29.21-.46.27l-.97.36s-.05.09,0,.1l.98.35c.14.05.26.11.38.2.08.06.15.13.21.21.09.11.16.23.21.36l.36.95s.09.05.11,0l.35-.95c.06-.17.15-.32.27-.45.05-.05.09-.09.15-.13.11-.09.24-.16.37-.2l.97-.36s.05-.09,0-.1l-.97-.34c-.17-.06-.33-.15-.46-.27Z"/>
+                                    <path d="M15.29,4.99c-.09-.12-.21-.22-.34-.3-.08-.05-.17-.09-.27-.13l-.85-.3c-.09-.03-.09-.16,0-.19l.85-.31c.09-.03.19-.08.27-.13.13-.08.24-.19.33-.3.08-.11.14-.23.19-.36l.3-.83c.03-.09.16-.09.2,0l.32.84c.03.08.09.2.14.27.1.15.24.28.39.38.07.04.19.1.27.13l.85.3c.09.03.09.16,0,.19l-.84.31c-.13.05-.25.11-.36.19-.12.09-.22.2-.31.33-.05.08-.1.17-.13.26l-.31.84c-.03.09-.16.09-.2,0l-.31-.82c-.05-.13-.11-.25-.2-.36Z"/>
+                                </svg>                                
+                            </div>
+                            <div class="glass-icon" order="3">
+                                <svg version="1.1" viewBox="0 0 20 20">
+                                    <path d="M10,4.07c.3,0,.54.24.54.54v4.85h4.85c.3,0,.54.24.54.54s-.24.54-.54.54h-4.85v4.85c0,.3-.24.54-.54.54s-.54-.24-.54-.54v-4.85h-4.85c-.3,0-.54-.24-.54-.54s.24-.54.54-.54h4.85v-4.85c0-.3.24-.54.54-.54Z"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass-effect"></div>
+                </div>
+
+                <div class="phone__scroll-container">
+                    <img id="screenshotImg" src="nike.png" alt="Produit" />
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js" defer></script>
+</body>
+</html>
