@@ -62,6 +62,9 @@ body {
     border-radius: 18px;
     transition: left 0.3s;
 }
+.toggle-input:checked + .toggle-label .toggle-switch {
+    left: calc(50% + 2px);
+}
 .toggle-label {
     display: flex;
     position: relative;
