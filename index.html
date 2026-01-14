@@ -1,62 +1,130 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
+
 <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Prototype Chatbot Shopping</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Hubot+Sans:wght@200..900&family=Mona+Sans:wght@200..900&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css"/>
-    <link rel="stylesheet" href="fx.css"/>
+    <title>Simulateur de devis</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <nav class="top-nav">
-        <div class="nav-brand">Mobile UX Lab</div>
-        <div class="nav-links">
-            <a href="index.html" class="nav-item">Mobile</a>
-            <a href="desktop.html" class="nav-item">Desktop</a>
-        </div>
-    </nav>
-
-    <main class="stage">
-        <aside class="dashboard">
-            <div class="dashboard__block">
-                <label class="field__label" for="bgSelect">Background</label>
-                <div class="urlField">
-                    <select id="bgSelect">
-                        <option value="nike.png">Nike</option>
-                        <option value="laredoute.png">La Redoute</option>
-                        <option value="clic.png">Clic Volet</option>
-                    </select>
+    <div class="content">
+            <div class="toggle-wrapper">
+                <input type="checkbox" id="toggle" class="toggle-input" checked>
+                <label for="toggle" class="toggle-label">
+                    <span class="toggle-option" id="mttc">Mode TTC</span>
+                    <span class="toggle-option" id="mht">Mode HT</span>                 
+                    <span class="toggle-switch"></span>
+                </label>
+            </div>
+            <br>
+            <div class="contentbox">
+                <div id="byht">
+                    <h2>Calcul par références HT</h2>
+                
+                    <div id="ref-list-ht"></div>
+                    <div id="ht_extra-reference" style="display: none;">
+                        <button id="ht_add-ref-btn" onclick="ht_afficherInputReference()">Ajouter une nouvelle référence</button>
+                    </div><br>
+                
+                    <label><span>Nb main d'œuvre :</span>
+                        <select id="nb_mo_ht"></select>
+                    </label><br>
+                
+                    <label><span>Remise diagnostic :</span>
+                        <select id="ht_remise_diag">
+                            <option value="false" selected>Non</option>
+                            <option value="true">Oui</option>
+                        </select>
+                    </label><br>
+                
+                    <label><span>Déplacement offert :</span>
+                        <select id="ht_remise_dep">
+                            <option value="false" selected>Non</option>
+                            <option value="true">Oui</option>
+                        </select>
+                    </label><br>
+                
+                    <label><span>Taxes :</span>
+                        <select id="ht_user_taxes">
+                            <option value="TVA 10%">TVA 10%</option>
+                            <option value="TVA 20%">TVA 20%</option>
+                        </select>
+                    </label><br>
+                
+                    <button onclick="calculerHT()">Calculer</button>
+                
+                    <div id="ht_result-container" style="display:none;">
+                        <br>
+                        <h2>Résultats :</h2>
+                        <pre id="ht_resultat" class=""></pre>
+                    </div>
                 </div>
+                <div id="byttc" style="display: none;">
+                    <h2>Calcul à partir d'un prix TTC</h2>
+            
+                    <label><span>Prix de vente (TTC) :</span>
+                        <input type="number" id="prix_ttc" step="0.01">
+                    </label><br>
+            
+                    <label><span>Nb main d'œuvre :</span>
+                        <select id="nb_mo_ttc"></select>
+                    </label><br>
+            
+                    <label><span>Remise diagnostic :</span>
+                        <select id="remise_diag">
+                            <option value="false" selected>Non</option>
+                            <option value="true">Oui</option>
+                        </select>
+                    </label><br>
+            
+                    <label><span>Déplacement offert :</span>
+                        <select id="remise_dep">
+                            <option value="false" selected>Non</option>
+                            <option value="true">Oui</option>
+                        </select>
+                    </label><br>
+            
+                    <label><span>Taxes :</span>
+                        <select id="user_taxes">
+                            <option value="TVA 10%">TVA 10%</option>
+                            <option value="TVA 20%">TVA 20%</option>
+                        </select>
+                    </label><br>
+            
+                    <button onclick="calculer()">Calculer</button>
+            
+            
+                    <div id="result-container" style="display:none;">
+                        <br>
+                        <h2>Résultats :</h2>
+                        <pre id="resultat" class=""></pre>
+                    </div>
+                    <br>
+                    <div id="extra-reference" style="display: none;">
+                        <button id="add-ref-btn" onclick="afficherInputReference()">Ajouter une nouvelle référence</button>
+            
+                        <div id="ref-input-zone" style=" display: none;">
+                            <br>
+                            <label><span>Prix de la nouvelle ref :</span>
+                                <input type="number" id="ref_input_value" step="0.01">
+                            </label>
+                            <br>
+                            <button onclick="confirmerNouvelleReference()" class="confirmer">Confirmer</button>
+                            <p id="ref_error" style="color: red;"></p>
+                        </div>
+                    </div>
+                </div>
+
+            
             </div>
 
-            <div class="dashboard__block">
-                <label class="field__label" for="effectSelect">Effet Visuel</label>
-                <div class="urlField">
-                    <select id="effectSelect">
-                        <option value="haptic-edge">1 Haptic Edge</option>
-                    </select>
-                </div>
-            </div>        
-        </aside>
+    </div>
 
-        <div class="phone">
-            <div class="phone__viewport">
-                <div class="fx" id="mainGlow">                    
-                    <div class="trigger"></div>
-                    <div class="chat"></div>
-                </div>
 
-                <div class="phone__scroll-container">
-                    <img id="screenshotImg" src="nike.png" alt="Produit" />
-                </div>
-            </div>
-        </div>
-    </main>
+    <button id="reload-widget" title="Recharger la page"><span>🔄</span></button>
 
-    <script src="script.js" defer></script>
-    <script src="fx.js" defer></script>
+    <script src="script.js"></script>
 </body>
+
 </html>
