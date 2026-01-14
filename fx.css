@@ -1,0 +1,149 @@
+:root {
+    /* --- CUSTOMISATION MARCHAND --- */
+    --spine-color: #ffffff;
+    --spine-glow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 30px rgba(100, 200, 255, 0.4);
+    --spine-height: 50%;
+    --spine-width: 4px;
+    --primary-accent: #64b5f6;
+    
+    /* --- PHYSICS --- */
+    --ease-elastic: cubic-bezier(0.19, 1, 0.22, 1);
+    --anim-duration: 0.6s;
+}
+
+/* Conteneur global (overlay) */
+.fx {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    pointer-events: none; /* Laisse passer les clics sur le site */
+    overflow: hidden;
+}
+
+/* --- THE SPINE (L'Épine) --- */
+.trigger {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: var(--spine-width);
+    height: var(--spine-height);
+    transform: translateY(-50%) translateX(0);
+    background: var(--spine-color);
+    border-radius: 10px 0 0 10px;
+    box-shadow: var(--spine-glow);
+    cursor: grab;
+    pointer-events: auto; /* Active l'interaction sur l'épine */
+    touch-action: none;   /* Empêche le scroll natif mobile au swipe */
+    z-index: 1002;
+    transition: transform var(--anim-duration) var(--ease-elastic), 
+                height 0.3s ease, 
+                width 0.3s ease;
+}
+
+/* Effet : Neural Pulse (État n1) */
+.trigger.pulse {
+    animation: neuralPulse 4s infinite ease-in-out;
+}
+
+@keyframes neuralPulse {
+    0%, 100% { opacity: 0.6; box-shadow: 0 0 5px rgba(255,255,255,0.2); }
+    50% { opacity: 1; box-shadow: var(--spine-glow); }
+}
+
+/* Affordance : Le Grip (3 points) */
+.trigger::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -12px; /* Décalé vers l'intérieur */
+    transform: translateY(-50%);
+    width: 6px;
+    height: 40px;
+    background: radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px);
+    background-size: 100% 12px; /* Texture 3 points */
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* --- THE FLAG (État n2 - Sollicitation) --- */
+.trigger::before {
+    content: attr(data-label); /* Texte injecté via JS */
+    position: absolute;
+    top: 50%;
+    right: 15px; /* Caché initialement à droite */
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 8px 16px;
+    border-radius: 20px 0 20px 20px;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    transition: all 0.5s var(--ease-elastic);
+    pointer-events: none;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* État n2 actif : Le Flag sort */
+.trigger.flag-active::before {
+    opacity: 1;
+    right: 20px; /* Sort vers la gauche */
+}
+
+/* --- THE PANEL (Interface Conversationnelle) --- */
+.chat {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 85%; /* Largeur mobile standard */
+    max-width: 400px;
+    height: 100%;
+    background: rgba(20, 20, 30, 0.6); /* Sombre et transparent */
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: -20px 0 50px rgba(0,0,0,0.5);
+    transform: translateX(100%); /* Caché par défaut */
+    transition: transform var(--anim-duration) var(--ease-elastic);
+    pointer-events: auto;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+/* Simulation de contenu chat (Placeholder) */
+.chat::after {
+    content: "Assistant IA 2.0";
+    color: rgba(255,255,255,0.2);
+    font-size: 24px;
+    font-weight: 800;
+    margin-top: 100px;
+    text-align: center;
+}
+
+/* --- ÉTAT nX : EXPANSION --- */
+body.panel-open .chat {
+    transform: translateX(0%);
+}
+body.panel-open .trigger {
+    transform: translateY(-50%) translateX(-300px); /* Suit le panneau (valeur approx, géré par JS en drag) */
+    opacity: 0; /* Disparaît ou s'intègre au panel */
+}
+
+/* --- ANIMATION D'AMORÇAGE (n0 -> n1) --- */
+@keyframes primeSlide {
+    0% { transform: translateY(-50%) translateX(0); }
+    50% { transform: translateY(-50%) translateX(-40px); width: 6px; } /* Sort de 40px */
+    100% { transform: translateY(-50%) translateX(0); }
+}
+
+.trigger.priming {
+    animation: primeSlide 1.2s var(--ease-elastic);
+}

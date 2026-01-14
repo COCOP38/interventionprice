@@ -1,0 +1,211 @@
+:root {
+    --bg: #242e47;
+    --stroke: rgba(255, 255, 255, 0.12);
+    --text: rgba(255, 255, 255, 0.9);
+    --glow-color: rgba(105, 20, 69, 0.5); /* Variable pilotée par JS */
+}
+
+/* Reset & Base */
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    height: 100vh;
+    background: radial-gradient(1200px 800px at 50% 0%, #111a33 0%, var(--bg) 55%);
+    font-family: "Mona Sans", sans-serif;
+    color: var(--text);
+    overflow: hidden;
+}
+
+/* --- NAVIGATION --- */
+.top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: rgba(17, 26, 51, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--stroke);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    z-index: 1000;
+}
+
+.nav-brand {
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    background: linear-gradient(90deg, #fff, rgba(255,255,255,0.5));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.nav-links {
+    display: flex;
+    gap: 24px;
+}
+
+.nav-item {
+    text-decoration: none;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.nav-item:hover {
+    opacity: 1;
+}
+
+/* STAGE LAYOUT */
+.stage {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 40px;
+    height: 100vh;
+    padding: 100px 40px 40px;
+    align-items: center;
+}
+
+/* Dashboard */
+.dashboard {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--stroke);
+    border-radius: 20px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.dashboard__block { display: flex; flex-direction: column; gap: 8px; }
+
+.field__label { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.6); }
+
+.field__input, .urlField {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    color: white;
+    padding: 10px;
+}
+
+ 
+
+/* Phone & Viewport */
+.phone {
+    position: relative;
+    width: 360px;
+    height: 640px;
+    margin: auto;
+    background: #111;
+    border-radius: 50px;
+    border: 12px solid #1a1a1a;
+    box-shadow: 0 50px 100px -20px rgba(0,0,0,0.7);
+}
+
+.phone__viewport {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 38px;
+    overflow: hidden; /* COUPE LE DÉBORDEMENT */
+}
+
+.phone__scroll-container {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.phone__scroll-container img { width: 100%; display: block; }
+
+
+/* --- RESPONSIVE MOBILE (< 768px) --- */
+@media (max-width: 768px) {
+    
+    /* 1. Layout global : Hauteur fixe à 100dvh (viewport dynamique) */
+    .stage {
+        display: flex;
+        flex-direction: column-reverse; /* Dashboard en bas */
+        padding: 0;
+        height: 100dvh; /* Force la hauteur écran */
+        width: 100vw;
+        gap: 0;
+        overflow: hidden; /* Empêche le scroll sur le body entier */
+    }
+
+    /* 2. Dashboard : Fixe en bas */
+    .dashboard {
+        width: 100%;
+        flex-shrink: 0; /* Ne rétrécit pas */
+        border-radius: 0;
+        border: none;
+        border-top: 1px solid var(--stroke);
+        padding: 15px 20px;
+        background: rgba(17, 26, 51, 0.95);
+        display: flex;
+        flex-direction: row;
+        gap: 15px;
+        overflow-x: auto; /* Scroll horizontal pour les menus si besoin */
+        z-index: 100; /* S'assure qu'il est au-dessus */
+    }
+    
+    .dashboard__block {
+        min-width: 120px;
+    }
+
+    /* 3. Phone Container : Le Flex Item magique */
+    .phone {
+        width: 100%;
+        /* LA CLÉ DU PROBLÈME EST ICI : */
+        flex: 1; /* Prend tout l'espace disponible verticalement */
+        min-height: 0; /* CRUCIAL : Autorise le conteneur à être plus petit que son contenu */
+        
+        margin: 0;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        background: transparent;
+        display: flex; /* Pour gérer le viewport interne */
+        flex-direction: column;
+    }
+
+    /* 4. Viewport */
+    .phone__viewport {
+        border-radius: 0;
+        width: 100%;
+        height: 100%; /* Remplit le parent .phone */
+        position: relative;
+    }
+
+    /* 5. Scroll Container */
+    .phone__scroll-container {
+        width: 100%;
+        height: 100%;
+        overflow-y: auto; /* Active le scroll ici */
+        overscroll-behavior: contain; /* Évite le rebond sur le body */
+        -webkit-overflow-scrolling: touch; /* Scroll fluide "momentum" sur iOS */
+    }
+
+    /* 6. Navigation (Optionnel : on peut la cacher pour gagner de la place) */
+    .top-nav {
+        display: none; /* Cache le menu desktop sur mobile pour maximiser l'image */
+    }
+    
+    /* Ajustement FX */
+    .fx { border-radius: 0; }
+}
+
+/* --- CONFIGURATION DES EFFETS --- */
+
+.fx {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 20;
+}
+

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Prototype Chatbot Shopping</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Hubot+Sans:wght@200..900&family=Mona+Sans:wght@200..900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="fx.css"/>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-brand">Mobile UX Lab</div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-item">Mobile</a>
+            <a href="desktop.html" class="nav-item">Desktop</a>
+        </div>
+    </nav>
+
+    <main class="stage">
+        <aside class="dashboard">
+            <div class="dashboard__block">
+                <label class="field__label" for="bgSelect">Background</label>
+                <div class="urlField">
+                    <select id="bgSelect">
+                        <option value="nike.png">Nike</option>
+                        <option value="laredoute.png">La Redoute</option>
+                        <option value="clic.png">Clic Volet</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="dashboard__block">
+                <label class="field__label" for="effectSelect">Effet Visuel</label>
+                <div class="urlField">
+                    <select id="effectSelect">
+                        <option value="haptic-edge">1 Haptic Edge</option>
+                    </select>
+                </div>
+            </div>        
+        </aside>
+
+        <div class="phone">
+            <div class="phone__viewport">
+                <div class="fx" id="mainGlow">                    
+                    <div class="trigger"></div>
+                    <div class="chat"></div>
+                </div>
+
+                <div class="phone__scroll-container">
+                    <img id="screenshotImg" src="nike.png" alt="Produit" />
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js" defer></script>
+    <script src="fx.js" defer></script>
+</body>
+</html>
